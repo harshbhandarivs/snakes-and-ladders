@@ -50,7 +50,7 @@ public class Game {
 
             if (positionIsHundred(next)) {
                 printer.println("Player " + this.playerNumberToNames.get(currentPlayerIndex + 1) + " wins! Game finished.");
-                return;
+                break;
             }
 
             if (startsWithOtherThanSix(this.playerPositions[currentPlayerIndex], nextNum)) {
