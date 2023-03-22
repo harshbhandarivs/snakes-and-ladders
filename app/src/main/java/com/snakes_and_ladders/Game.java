@@ -67,7 +67,7 @@ public class Game {
                     return;
                 }
 
-                if (onePos == 0 && nextNum != 6) {
+                if (startsWithOtherThanSix(onePos, nextNum)) {
                     printer.println("Player one did not score 6. First a 6 needs to be scored to start moving on board.");
                     skip = true;
                 }
@@ -107,7 +107,7 @@ public class Game {
                     return;
                 }
 
-                if (twoPos == 0 && nextNum != 6) {
+                if (startsWithOtherThanSix(twoPos, nextNum)) {
                     printer.println("Player two did not score 6. First a 6 needs to be scored to start moving on board.");
                     skip = true;
                 }
@@ -146,7 +146,7 @@ public class Game {
                     return;
                 }
 
-                if (threePos == 0 && nextNum != 6) {
+                if (startsWithOtherThanSix(threePos, nextNum)) {
                     printer.println("Player three did not score 6. First a 6 needs to be scored to start moving on board.");
                     skip = true;
                 }
@@ -185,7 +185,7 @@ public class Game {
                     return;
                 }
 
-                if (fourPos == 0 && nextNum != 6) {
+                if (startsWithOtherThanSix(fourPos, nextNum)) {
                     printer.println("Player four did not score 6. First a 6 needs to be scored to start moving on board.");
                     skip = true;
                 }
@@ -212,5 +212,9 @@ public class Game {
             }
 
         }
+    }
+
+    private boolean startsWithOtherThanSix(int currentPosition, int nextNum) {
+        return currentPosition == 0 && nextNum != 6;
     }
 }
