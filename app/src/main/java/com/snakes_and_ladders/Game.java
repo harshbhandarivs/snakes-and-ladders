@@ -10,14 +10,13 @@ public class Game {
 
     private final DiceRoll diceRoll;
     private final Printer printer;
+    private final Map<Integer, Integer> snakePositions;
+    private final Map<Integer, Integer> ladderPositions;
 
     public Game(DiceRoll diceRoll, Printer printer) {
         this.diceRoll = diceRoll;
         this.printer = printer;
-    }
-
-    public void play() {
-        Map<Integer, Integer> snkPos = new HashMap<>() {
+        this.snakePositions = new HashMap<>() {
             {
                 put(18, 2);
                 put(25, 8);
@@ -31,7 +30,7 @@ public class Game {
                 put(97, 5);
             }
         };
-        Map<Integer, Integer> ldrPos = new HashMap<>() {
+        this.ladderPositions = new HashMap<>() {
             {
                 put(9, 32);
                 put(12, 53);
@@ -43,6 +42,9 @@ public class Game {
                 put(63, 88);
             }
         };
+    }
+
+    public void play() {
         int player = 1;
         int onePos = 0, twoPos = 0, threePos = 0, fourPos = 0;
         boolean skip = false;
@@ -72,15 +74,15 @@ public class Game {
                     skip = true;
                 }
 
-                if (nextPositionHasSnake(snkPos, next)) {
+                if (nextPositionHasSnake(snakePositions, next)) {
                     printer.println("Player got bit by snake a position " + next);
-                    onePos = snkPos.get(next);
+                    onePos = snakePositions.get(next);
                     skip = true;
                 }
 
-                if (nextPositionHasLadder(ldrPos, next)) {
+                if (nextPositionHasLadder(ladderPositions, next)) {
                     printer.println("Player got chanced upon a ladder at position " + next + "!");
-                    onePos = ldrPos.get(next);
+                    onePos = ladderPositions.get(next);
                     skip = true;
                 }
 
@@ -112,15 +114,15 @@ public class Game {
                     skip = true;
                 }
 
-                if (nextPositionHasSnake(snkPos, next)) {
+                if (nextPositionHasSnake(snakePositions, next)) {
                     printer.println("Player got bit by snake a position " + next);
-                    twoPos = snkPos.get(next);
+                    twoPos = snakePositions.get(next);
                     skip = true;
                 }
 
-                if (nextPositionHasLadder(ldrPos, next)) {
+                if (nextPositionHasLadder(ladderPositions, next)) {
                     printer.println("Player got chanced upon a ladder at position " + next + "!");
-                    twoPos = ldrPos.get(next);
+                    twoPos = ladderPositions.get(next);
                     skip = true;
                 }
 
@@ -151,15 +153,15 @@ public class Game {
                     skip = true;
                 }
 
-                if (nextPositionHasSnake(snkPos, next)) {
+                if (nextPositionHasSnake(snakePositions, next)) {
                     printer.println("Player got bit by snake a position " + next);
-                    threePos = snkPos.get(next);
+                    threePos = snakePositions.get(next);
                     skip = true;
                 }
 
-                if (nextPositionHasLadder(ldrPos, next)) {
+                if (nextPositionHasLadder(ladderPositions, next)) {
                     printer.println("Player got chanced upon a ladder at position " + next + "!");
-                    threePos = ldrPos.get(next);
+                    threePos = ladderPositions.get(next);
                     skip = true;
                 }
 
@@ -190,15 +192,15 @@ public class Game {
                     skip = true;
                 }
 
-                if (nextPositionHasSnake(snkPos, next)) {
+                if (nextPositionHasSnake(snakePositions, next)) {
                     printer.println("Player got bit by snake a position " + next);
-                    fourPos = snkPos.get(next);
+                    fourPos = snakePositions.get(next);
                     skip = true;
                 }
 
-                if (nextPositionHasLadder(ldrPos, next)) {
+                if (nextPositionHasLadder(ladderPositions, next)) {
                     printer.println("Player got chanced upon a ladder at position " + next + "!");
-                    fourPos = ldrPos.get(next);
+                    fourPos = ladderPositions.get(next);
                     skip = true;
                 }
 
