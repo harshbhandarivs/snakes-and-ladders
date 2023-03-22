@@ -9,6 +9,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -511,7 +512,31 @@ class GameTest {
     @MethodSource("provideOutcomes")
     public void shouldPlayGameWithPreSpecifiedOutComes(DiceRoll diceRoll, List<String> output) {
         PrinterStub printer = new PrinterStub();
-        Game game = new Game(diceRoll, printer);
+        Game game = new Game(diceRoll, printer, new HashMap<>() {
+            {
+                put(18, 2);
+                put(25, 8);
+                put(38, 11);
+                put(41, 19);
+                put(59, 21);
+                put(72, 12);
+                put(78, 7);
+                put(86, 31);
+                put(92, 26);
+                put(97, 5);
+            }
+        }, new HashMap<>() {
+            {
+                put(9, 32);
+                put(12, 53);
+                put(17, 90);
+                put(21, 50);
+                put(27, 66);
+                put(29, 42);
+                put(44, 73);
+                put(63, 88);
+            }
+        });
 
         game.play();
 
