@@ -45,7 +45,7 @@ public class Game {
     }
 
     public void play() {
-        int player = 1;
+        int currentPlayerIndex = 1;
         int onePos = 0, twoPos = 0, threePos = 0, fourPos = 0;
         boolean skip = false;
 
@@ -54,23 +54,23 @@ public class Game {
         while (true) {
 
             int nextNum = diceRoll.getNumber();
-            printer.println("Player " + player + " got dice roll of " + nextNum);
+            printer.println("Player " + currentPlayerIndex + " got dice roll of " + nextNum);
 
-            if (player == 1) {
+            if (currentPlayerIndex == 1) {
                 int next = onePos + nextNum;
 
                 if (next > 100) {
-                    printer.println("Player one needs to score exactly " + (100 - onePos) + " on dice roll to win. Passing chance.");
+                    printer.println("Player " + currentPlayerIndex + " needs to score exactly " + (100 - onePos) + " on dice roll to win. Passing chance.");
                     skip = true;
                 }
 
                 if (next == 100) {
-                    printer.println("Player one wins! Game finished.");
+                    printer.println("Player " + currentPlayerIndex + " wins! Game finished.");
                     return;
                 }
 
                 if (startsWithOtherThanSix(onePos, nextNum)) {
-                    printer.println("Player one did not score 6. First a 6 needs to be scored to start moving on board.");
+                    printer.println("Player " + currentPlayerIndex + " did not score 6. First a 6 needs to be scored to start moving on board.");
                     skip = true;
                 }
 
@@ -90,27 +90,27 @@ public class Game {
                     onePos = next;
                 }
 
-                printer.println("Next position for player one is " + onePos);
+                printer.println("Next position for player " + currentPlayerIndex + " is " + onePos);
                 skip = false;
-                player = 2;
-                printer.println("Player two will play next turn");
+                currentPlayerIndex = 2;
+                printer.println("Player " + currentPlayerIndex + " will play next turn");
 
-            } else if (player == 2) {
+            } else if (currentPlayerIndex == 2) {
 
                 int next = twoPos + nextNum;
 
                 if (next > 100) {
-                    printer.println("Player two needs to score exactly " + (100 - twoPos) + " on dice roll to win. Passing chance.");
+                    printer.println("Player " + currentPlayerIndex + " needs to score exactly " + (100 - twoPos) + " on dice roll to win. Passing chance.");
                     skip = true;
                 }
 
                 if (next == 100) {
-                    printer.println("Player two wins! Game finished.");
+                    printer.println("Player " + currentPlayerIndex + " wins! Game finished.");
                     return;
                 }
 
                 if (startsWithOtherThanSix(twoPos, nextNum)) {
-                    printer.println("Player two did not score 6. First a 6 needs to be scored to start moving on board.");
+                    printer.println("Player " + currentPlayerIndex + " did not score 6. First a 6 needs to be scored to start moving on board.");
                     skip = true;
                 }
 
@@ -129,27 +129,27 @@ public class Game {
                 if (!skip) {
                     twoPos = next;
                 }
-                printer.println("Next position for player two is " + twoPos);
+                printer.println("Next position for player " + currentPlayerIndex + " is " + twoPos);
                 skip = false;
-                player = 3;
-                printer.println("Player three will play next turn");
+                currentPlayerIndex = 3;
+                printer.println("Player " + currentPlayerIndex + " will play next turn");
 
-            } else if (player == 3) {
+            } else if (currentPlayerIndex == 3) {
 
                 int next = threePos + nextNum;
 
                 if (next > 100) {
-                    printer.println("Player three needs to score exactly " + (100 - threePos) + " on dice roll to win. Passing chance.");
+                    printer.println("Player " + currentPlayerIndex + " needs to score exactly " + (100 - threePos) + " on dice roll to win. Passing chance.");
                     skip = true;
                 }
 
                 if (next == 100) {
-                    printer.println("Player three wins! Game finished.");
+                    printer.println("Player " + currentPlayerIndex + " wins! Game finished.");
                     return;
                 }
 
                 if (startsWithOtherThanSix(threePos, nextNum)) {
-                    printer.println("Player three did not score 6. First a 6 needs to be scored to start moving on board.");
+                    printer.println("Player " + currentPlayerIndex + " did not score 6. First a 6 needs to be scored to start moving on board.");
                     skip = true;
                 }
 
@@ -168,27 +168,27 @@ public class Game {
                 if (!skip) {
                     threePos = next;
                 }
-                printer.println("Next position for player three is " + threePos);
+                printer.println("Next position for player " + currentPlayerIndex + " is " + threePos);
                 skip = false;
-                player = 4;
-                printer.println("Player four will play next turn");
+                currentPlayerIndex = 4;
+                printer.println("Player " + currentPlayerIndex + " will play next turn");
 
             } else {
 
                 int next = fourPos + nextNum;
 
                 if (next > 100) {
-                    printer.println("Player four needs to score exactly " + (100 - fourPos) + " on dice roll to win. Passing chance.");
+                    printer.println("Player " + currentPlayerIndex + " needs to score exactly " + (100 - fourPos) + " on dice roll to win. Passing chance.");
                     skip = true;
                 }
 
                 if (next == 100) {
-                    printer.println("Player four wins! Game finished.");
+                    printer.println("Player " + currentPlayerIndex + " wins! Game finished.");
                     return;
                 }
 
                 if (startsWithOtherThanSix(fourPos, nextNum)) {
-                    printer.println("Player four did not score 6. First a 6 needs to be scored to start moving on board.");
+                    printer.println("Player " + currentPlayerIndex + " did not score 6. First a 6 needs to be scored to start moving on board.");
                     skip = true;
                 }
 
@@ -207,10 +207,10 @@ public class Game {
                 if (!skip) {
                     fourPos = next;
                 }
-                printer.println("Next position for player four is " + fourPos);
+                printer.println("Next position for player " + currentPlayerIndex + " is " + fourPos);
                 skip = false;
-                player = 1;
-                printer.println("Player one will play next turn");
+                currentPlayerIndex = 1;
+                printer.println("Player " + currentPlayerIndex + " will play next turn");
             }
 
         }
