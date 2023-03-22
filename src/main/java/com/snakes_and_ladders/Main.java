@@ -12,8 +12,6 @@ public class Main {
     }
 
     private void play() {
-        //declare variables
-        String[][] brd = new String[10][10];
         Map<Integer, Integer> snkPos = new HashMap<Integer, Integer>() {
             {
                 put(18, 2);
