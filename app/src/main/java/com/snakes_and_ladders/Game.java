@@ -43,12 +43,12 @@ public class Game {
             printer.println("Player " + (currentPlayerIndex + 1) + " got dice roll of " + nextNum);
             int next = this.playerPositions[currentPlayerIndex] + nextNum;
 
-            if (nextPositionIsMoreThanHundred(next)) {
+            if (positionIsMoreThanHundred(next)) {
                 printer.println("Player " + this.playerNumberToNames.get(currentPlayerIndex + 1) + " needs to score exactly " + (100 - this.playerPositions[currentPlayerIndex]) + " on dice roll to win. Passing chance.");
                 skip = true;
             }
 
-            if (nextPositionIsHundred(next)) {
+            if (positionIsHundred(next)) {
                 printer.println("Player " + this.playerNumberToNames.get(currentPlayerIndex + 1) + " wins! Game finished.");
                 return;
             }
@@ -58,13 +58,13 @@ public class Game {
                 skip = true;
             }
 
-            if (nextPositionHasSnake(next)) {
+            if (positionHasSnake(next)) {
                 printer.println("Player got bit by snake a position " + next);
                 this.playerPositions[currentPlayerIndex] = snakePositions.get(next);
                 skip = true;
             }
 
-            if (nextPositionHasLadder(next)) {
+            if (positionHasLadder(next)) {
                 printer.println("Player got chanced upon a ladder at position " + next + "!");
                 this.playerPositions[currentPlayerIndex] = ladderPositions.get(next);
                 skip = true;
@@ -81,20 +81,20 @@ public class Game {
         }
     }
 
-    private boolean nextPositionIsMoreThanHundred(int next) {
-        return next > 100;
+    private boolean positionIsMoreThanHundred(int position) {
+        return position > 100;
     }
 
-    private boolean nextPositionIsHundred(int next) {
-        return next == 100;
+    private boolean positionIsHundred(int position) {
+        return position == 100;
     }
 
-    private boolean nextPositionHasLadder(int next) {
-        return this.ladderPositions.get(next) != null;
+    private boolean positionHasLadder(int position) {
+        return this.ladderPositions.get(position) != null;
     }
 
-    private boolean nextPositionHasSnake(int next) {
-        return this.snakePositions.get(next) != null;
+    private boolean positionHasSnake(int position) {
+        return this.snakePositions.get(position) != null;
     }
 
     private boolean startsWithOtherThanSix(int currentPosition, int nextNum) {
