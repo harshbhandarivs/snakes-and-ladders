@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class Game {
 
-    public static void play() {
+    public void play() {
         Map<Integer, Integer> snkPos = new HashMap<>() {
             {
                 put(18, 2);
