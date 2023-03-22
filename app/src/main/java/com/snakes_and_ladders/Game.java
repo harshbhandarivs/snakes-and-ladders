@@ -67,12 +67,12 @@ public class Game {
             printer.println("Player " + (currentPlayerIndex + 1) + " got dice roll of " + nextNum);
             int next = this.playerPositions[currentPlayerIndex] + nextNum;
 
-            if (next > 100) {
+            if (nextPositionIsMoreThanHundred(next)) {
                 printer.println("Player " + this.playerNumberToNames.get(currentPlayerIndex + 1) + " needs to score exactly " + (100 - this.playerPositions[currentPlayerIndex]) + " on dice roll to win. Passing chance.");
                 skip = true;
             }
 
-            if (next == 100) {
+            if (nextPositionIsHundred(next)) {
                 printer.println("Player " + this.playerNumberToNames.get(currentPlayerIndex + 1) + " wins! Game finished.");
                 return;
             }
@@ -103,6 +103,14 @@ public class Game {
             currentPlayerIndex = (currentPlayerIndex + 1) % 4;
             printer.println("Player " + this.playerNumberToNames.get(currentPlayerIndex + 1) + " will play next turn");
         }
+    }
+
+    private boolean nextPositionIsMoreThanHundred(int next) {
+        return next > 100;
+    }
+
+    private boolean nextPositionIsHundred(int next) {
+        return next == 100;
     }
 
     private boolean nextPositionHasLadder(int next) {
