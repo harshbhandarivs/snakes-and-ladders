@@ -1,3 +1,5 @@
+package main.java.com.snakes_and_ladders;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
