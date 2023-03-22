@@ -7,10 +7,11 @@ import java.util.Random;
 public class Main {
 
     public static void main(String[] args) {
-        play();
+        Main main = new Main();
+        main.play();
     }
 
-    private static void play() {
+    private void play() {
         //declare variables
         String[][] brd = new String[10][10];
         Map<Integer, Integer> snkPos = new HashMap<Integer, Integer>() {
