@@ -72,13 +72,13 @@ public class Game {
                     skip = true;
                 }
 
-                if (snkPos.get(next) != null) {
+                if (nextPositionHasSnake(snkPos, next)) {
                     printer.println("Player got bit by snake a position " + next);
                     onePos = snkPos.get(next);
                     skip = true;
                 }
 
-                if (ldrPos.get(next) != null) {
+                if (nextPositionHasLadder(ldrPos, next)) {
                     printer.println("Player got chanced upon a ladder at position " + next + "!");
                     onePos = ldrPos.get(next);
                     skip = true;
@@ -112,13 +112,13 @@ public class Game {
                     skip = true;
                 }
 
-                if (snkPos.get(next) != null) {
+                if (nextPositionHasSnake(snkPos, next)) {
                     printer.println("Player got bit by snake a position " + next);
                     twoPos = snkPos.get(next);
                     skip = true;
                 }
 
-                if (ldrPos.get(next) != null) {
+                if (nextPositionHasLadder(ldrPos, next)) {
                     printer.println("Player got chanced upon a ladder at position " + next + "!");
                     twoPos = ldrPos.get(next);
                     skip = true;
@@ -151,13 +151,13 @@ public class Game {
                     skip = true;
                 }
 
-                if (snkPos.get(next) != null) {
+                if (nextPositionHasSnake(snkPos, next)) {
                     printer.println("Player got bit by snake a position " + next);
                     threePos = snkPos.get(next);
                     skip = true;
                 }
 
-                if (ldrPos.get(next) != null) {
+                if (nextPositionHasLadder(ldrPos, next)) {
                     printer.println("Player got chanced upon a ladder at position " + next + "!");
                     threePos = ldrPos.get(next);
                     skip = true;
@@ -190,13 +190,13 @@ public class Game {
                     skip = true;
                 }
 
-                if (snkPos.get(next) != null) {
+                if (nextPositionHasSnake(snkPos, next)) {
                     printer.println("Player got bit by snake a position " + next);
                     fourPos = snkPos.get(next);
                     skip = true;
                 }
 
-                if (ldrPos.get(next) != null) {
+                if (nextPositionHasLadder(ldrPos, next)) {
                     printer.println("Player got chanced upon a ladder at position " + next + "!");
                     fourPos = ldrPos.get(next);
                     skip = true;
@@ -212,6 +212,14 @@ public class Game {
             }
 
         }
+    }
+
+    private static boolean nextPositionHasLadder(Map<Integer, Integer> ldrPos, int next) {
+        return ldrPos.get(next) != null;
+    }
+
+    private static boolean nextPositionHasSnake(Map<Integer, Integer> snkPos, int next) {
+        return snkPos.get(next) != null;
     }
 
     private boolean startsWithOtherThanSix(int currentPosition, int nextNum) {
