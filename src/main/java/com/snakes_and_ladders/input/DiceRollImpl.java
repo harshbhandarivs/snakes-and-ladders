@@ -6,7 +6,7 @@ public class DiceRollImpl implements DiceRoll {
 
     private final Random random;
 
-    DiceRollImpl() {
+    public DiceRollImpl() {
         random = new Random();
     }
 

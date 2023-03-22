@@ -1,10 +1,17 @@
 package main.java.com.snakes_and_ladders;
 
+import main.java.com.snakes_and_ladders.input.DiceRoll;
+
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 public class Game {
+
+    private final DiceRoll diceRoll;
+
+    Game(DiceRoll diceRoll) {
+        this.diceRoll = diceRoll;
+    }
 
     public void play() {
         Map<Integer, Integer> snkPos = new HashMap<>() {
@@ -41,7 +48,7 @@ public class Game {
         //continue to play the game until it is over
         while (true) {
 
-            int nextNum = getNumber();
+            int nextNum = diceRoll.getNumber();
             System.out.println("Player " + player + " got dice roll of " + nextNum);
 
             if (player == 1) {
@@ -202,11 +209,5 @@ public class Game {
             }
 
         }
-    }
-
-    //throw number at random
-    private static Integer getNumber() {
-        Random rand = new Random();
-        return rand.nextInt(6) + 1;
     }
 }
