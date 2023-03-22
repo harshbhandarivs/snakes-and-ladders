@@ -7,6 +7,10 @@ import java.util.Random;
 public class Main {
 
     public static void main(String[] args) {
+        play();
+    }
+
+    private static void play() {
         //declare variables
         String[][] brd = new String[10][10];
         Map<Integer, Integer> snkPos = new HashMap<Integer, Integer>() {
@@ -204,7 +208,6 @@ public class Main {
             }
 
         }
-
     }
 
     //throw number at random
