@@ -166,7 +166,7 @@ public class Main {
                 player = 4;
                 System.out.println("Player four will play next turn");
 
-            } else if (player == 4) {
+            } else {
 
                 int next = fourPos + nextNum;
 
