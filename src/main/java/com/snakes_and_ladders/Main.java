@@ -12,7 +12,7 @@ public class Main {
     }
 
     private void play() {
-        Map<Integer, Integer> snkPos = new HashMap<Integer, Integer>() {
+        Map<Integer, Integer> snkPos = new HashMap<>() {
             {
                 put(18, 2);
                 put(25, 8);
@@ -26,7 +26,7 @@ public class Main {
                 put(97, 5);
             }
         };
-        Map<Integer, Integer> ldrPos = new HashMap<Integer, Integer>() {
+        Map<Integer, Integer> ldrPos = new HashMap<>() {
             {
                 put(9, 32);
                 put(12, 53);
