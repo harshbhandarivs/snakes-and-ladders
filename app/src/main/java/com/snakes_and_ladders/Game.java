@@ -1,7 +1,7 @@
-package main.java.com.snakes_and_ladders;
+package com.snakes_and_ladders;
 
-import main.java.com.snakes_and_ladders.input.DiceRoll;
-import main.java.com.snakes_and_ladders.printer.Printer;
+import com.snakes_and_ladders.input.DiceRoll;
+import com.snakes_and_ladders.printer.Printer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +11,7 @@ public class Game {
     private final DiceRoll diceRoll;
     private final Printer printer;
 
-    Game(DiceRoll diceRoll, Printer printer) {
+    public Game(DiceRoll diceRoll, Printer printer) {
         this.diceRoll = diceRoll;
         this.printer = printer;
     }
@@ -64,7 +64,7 @@ public class Game {
 
                 if (next == 100) {
                     printer.println("Player one wins! Game finished.");
-                    System.exit(1);
+                    return;
                 }
 
                 if (onePos == 0 && nextNum != 6) {
@@ -104,7 +104,7 @@ public class Game {
 
                 if (next == 100) {
                     printer.println("Player two wins! Game finished.");
-                    System.exit(1);
+                    return;
                 }
 
                 if (twoPos == 0 && nextNum != 6) {
@@ -143,7 +143,7 @@ public class Game {
 
                 if (next == 100) {
                     printer.println("Player three wins! Game finished.");
-                    System.exit(1);
+                    return;
                 }
 
                 if (threePos == 0 && nextNum != 6) {
@@ -182,7 +182,7 @@ public class Game {
 
                 if (next == 100) {
                     printer.println("Player four wins! Game finished.");
-                    System.exit(1);
+                    return;
                 }
 
                 if (fourPos == 0 && nextNum != 6) {

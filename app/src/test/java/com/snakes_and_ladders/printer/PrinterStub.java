@@ -1,11 +1,9 @@
-package test.java.com.snakes_and_ladders.printer;
-
-import main.java.com.snakes_and_ladders.printer.Printer;
+package com.snakes_and_ladders.printer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-class PrinterStub implements Printer {
+public class PrinterStub implements Printer {
 
     private final List<String> outputLines;
 

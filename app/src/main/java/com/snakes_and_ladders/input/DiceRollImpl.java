@@ -1,4 +1,4 @@
-package main.java.com.snakes_and_ladders.input;
+package com.snakes_and_ladders.input;
 
 import java.util.Random;
 

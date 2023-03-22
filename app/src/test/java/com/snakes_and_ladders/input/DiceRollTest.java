@@ -1,4 +1,4 @@
-package test.java.com.snakes_and_ladders.input;
+package com.snakes_and_ladders.input;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

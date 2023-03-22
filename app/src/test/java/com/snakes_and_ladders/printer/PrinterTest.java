@@ -1,4 +1,4 @@
-package test.java.com.snakes_and_ladders.printer;
+package com.snakes_and_ladders.printer;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
