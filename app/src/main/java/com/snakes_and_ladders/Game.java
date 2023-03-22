@@ -12,6 +12,8 @@ public class Game {
     private final Printer printer;
     private final Map<Integer, Integer> snakePositions;
     private final Map<Integer, Integer> ladderPositions;
+    private final int[] playerPositions;
+    private final Map<Integer, String> playerNumberToNames;
 
     public Game(DiceRoll diceRoll, Printer printer) {
         this.diceRoll = diceRoll;
@@ -42,11 +44,19 @@ public class Game {
                 put(63, 88);
             }
         };
+        this.playerPositions = new int[4];
+        this.playerNumberToNames = new HashMap<>() {
+            {
+                put(1, "one");
+                put(2, "two");
+                put(3, "three");
+                put(4, "four");
+            }
+        };
     }
 
     public void play() {
-        int currentPlayerIndex = 1;
-        int onePos = 0, twoPos = 0, threePos = 0, fourPos = 0;
+        int currentPlayerIndex = 0;
         boolean skip = false;
 
 
@@ -54,165 +64,44 @@ public class Game {
         while (true) {
 
             int nextNum = diceRoll.getNumber();
-            printer.println("Player " + currentPlayerIndex + " got dice roll of " + nextNum);
+            printer.println("Player " + (currentPlayerIndex + 1) + " got dice roll of " + nextNum);
+            int next = this.playerPositions[currentPlayerIndex] + nextNum;
 
-            if (currentPlayerIndex == 1) {
-                int next = onePos + nextNum;
-
-                if (next > 100) {
-                    printer.println("Player " + currentPlayerIndex + " needs to score exactly " + (100 - onePos) + " on dice roll to win. Passing chance.");
-                    skip = true;
-                }
-
-                if (next == 100) {
-                    printer.println("Player " + currentPlayerIndex + " wins! Game finished.");
-                    return;
-                }
-
-                if (startsWithOtherThanSix(onePos, nextNum)) {
-                    printer.println("Player " + currentPlayerIndex + " did not score 6. First a 6 needs to be scored to start moving on board.");
-                    skip = true;
-                }
-
-                if (nextPositionHasSnake(snakePositions, next)) {
-                    printer.println("Player got bit by snake a position " + next);
-                    onePos = snakePositions.get(next);
-                    skip = true;
-                }
-
-                if (nextPositionHasLadder(ladderPositions, next)) {
-                    printer.println("Player got chanced upon a ladder at position " + next + "!");
-                    onePos = ladderPositions.get(next);
-                    skip = true;
-                }
-
-                if (!skip) {
-                    onePos = next;
-                }
-
-                printer.println("Next position for player " + currentPlayerIndex + " is " + onePos);
-                skip = false;
-                currentPlayerIndex = 2;
-                printer.println("Player " + currentPlayerIndex + " will play next turn");
-
-            } else if (currentPlayerIndex == 2) {
-
-                int next = twoPos + nextNum;
-
-                if (next > 100) {
-                    printer.println("Player " + currentPlayerIndex + " needs to score exactly " + (100 - twoPos) + " on dice roll to win. Passing chance.");
-                    skip = true;
-                }
-
-                if (next == 100) {
-                    printer.println("Player " + currentPlayerIndex + " wins! Game finished.");
-                    return;
-                }
-
-                if (startsWithOtherThanSix(twoPos, nextNum)) {
-                    printer.println("Player " + currentPlayerIndex + " did not score 6. First a 6 needs to be scored to start moving on board.");
-                    skip = true;
-                }
-
-                if (nextPositionHasSnake(snakePositions, next)) {
-                    printer.println("Player got bit by snake a position " + next);
-                    twoPos = snakePositions.get(next);
-                    skip = true;
-                }
-
-                if (nextPositionHasLadder(ladderPositions, next)) {
-                    printer.println("Player got chanced upon a ladder at position " + next + "!");
-                    twoPos = ladderPositions.get(next);
-                    skip = true;
-                }
-
-                if (!skip) {
-                    twoPos = next;
-                }
-                printer.println("Next position for player " + currentPlayerIndex + " is " + twoPos);
-                skip = false;
-                currentPlayerIndex = 3;
-                printer.println("Player " + currentPlayerIndex + " will play next turn");
-
-            } else if (currentPlayerIndex == 3) {
-
-                int next = threePos + nextNum;
-
-                if (next > 100) {
-                    printer.println("Player " + currentPlayerIndex + " needs to score exactly " + (100 - threePos) + " on dice roll to win. Passing chance.");
-                    skip = true;
-                }
-
-                if (next == 100) {
-                    printer.println("Player " + currentPlayerIndex + " wins! Game finished.");
-                    return;
-                }
-
-                if (startsWithOtherThanSix(threePos, nextNum)) {
-                    printer.println("Player " + currentPlayerIndex + " did not score 6. First a 6 needs to be scored to start moving on board.");
-                    skip = true;
-                }
-
-                if (nextPositionHasSnake(snakePositions, next)) {
-                    printer.println("Player got bit by snake a position " + next);
-                    threePos = snakePositions.get(next);
-                    skip = true;
-                }
-
-                if (nextPositionHasLadder(ladderPositions, next)) {
-                    printer.println("Player got chanced upon a ladder at position " + next + "!");
-                    threePos = ladderPositions.get(next);
-                    skip = true;
-                }
-
-                if (!skip) {
-                    threePos = next;
-                }
-                printer.println("Next position for player " + currentPlayerIndex + " is " + threePos);
-                skip = false;
-                currentPlayerIndex = 4;
-                printer.println("Player " + currentPlayerIndex + " will play next turn");
-
-            } else {
-
-                int next = fourPos + nextNum;
-
-                if (next > 100) {
-                    printer.println("Player " + currentPlayerIndex + " needs to score exactly " + (100 - fourPos) + " on dice roll to win. Passing chance.");
-                    skip = true;
-                }
-
-                if (next == 100) {
-                    printer.println("Player " + currentPlayerIndex + " wins! Game finished.");
-                    return;
-                }
-
-                if (startsWithOtherThanSix(fourPos, nextNum)) {
-                    printer.println("Player " + currentPlayerIndex + " did not score 6. First a 6 needs to be scored to start moving on board.");
-                    skip = true;
-                }
-
-                if (nextPositionHasSnake(snakePositions, next)) {
-                    printer.println("Player got bit by snake a position " + next);
-                    fourPos = snakePositions.get(next);
-                    skip = true;
-                }
-
-                if (nextPositionHasLadder(ladderPositions, next)) {
-                    printer.println("Player got chanced upon a ladder at position " + next + "!");
-                    fourPos = ladderPositions.get(next);
-                    skip = true;
-                }
-
-                if (!skip) {
-                    fourPos = next;
-                }
-                printer.println("Next position for player " + currentPlayerIndex + " is " + fourPos);
-                skip = false;
-                currentPlayerIndex = 1;
-                printer.println("Player " + currentPlayerIndex + " will play next turn");
+            if (next > 100) {
+                printer.println("Player " + this.playerNumberToNames.get(currentPlayerIndex + 1) + " needs to score exactly " + (100 - this.playerPositions[currentPlayerIndex]) + " on dice roll to win. Passing chance.");
+                skip = true;
             }
 
+            if (next == 100) {
+                printer.println("Player " + this.playerNumberToNames.get(currentPlayerIndex + 1) + " wins! Game finished.");
+                return;
+            }
+
+            if (startsWithOtherThanSix(this.playerPositions[currentPlayerIndex], nextNum)) {
+                printer.println("Player " + this.playerNumberToNames.get(currentPlayerIndex + 1) + " did not score 6. First a 6 needs to be scored to start moving on board.");
+                skip = true;
+            }
+
+            if (nextPositionHasSnake(snakePositions, next)) {
+                printer.println("Player got bit by snake a position " + next);
+                this.playerPositions[currentPlayerIndex] = snakePositions.get(next);
+                skip = true;
+            }
+
+            if (nextPositionHasLadder(ladderPositions, next)) {
+                printer.println("Player got chanced upon a ladder at position " + next + "!");
+                this.playerPositions[currentPlayerIndex] = ladderPositions.get(next);
+                skip = true;
+            }
+
+            if (!skip) {
+                this.playerPositions[currentPlayerIndex] = next;
+            }
+
+            printer.println("Next position for player " + this.playerNumberToNames.get(currentPlayerIndex + 1) + " is " + this.playerPositions[currentPlayerIndex]);
+            skip = false;
+            currentPlayerIndex = (currentPlayerIndex + 1) % 4;
+            printer.println("Player " + this.playerNumberToNames.get(currentPlayerIndex + 1) + " will play next turn");
         }
     }
 
