@@ -82,13 +82,13 @@ public class Game {
                 skip = true;
             }
 
-            if (nextPositionHasSnake(snakePositions, next)) {
+            if (nextPositionHasSnake(next)) {
                 printer.println("Player got bit by snake a position " + next);
                 this.playerPositions[currentPlayerIndex] = snakePositions.get(next);
                 skip = true;
             }
 
-            if (nextPositionHasLadder(ladderPositions, next)) {
+            if (nextPositionHasLadder(next)) {
                 printer.println("Player got chanced upon a ladder at position " + next + "!");
                 this.playerPositions[currentPlayerIndex] = ladderPositions.get(next);
                 skip = true;
@@ -105,12 +105,12 @@ public class Game {
         }
     }
 
-    private static boolean nextPositionHasLadder(Map<Integer, Integer> ldrPos, int next) {
-        return ldrPos.get(next) != null;
+    private boolean nextPositionHasLadder(int next) {
+        return this.ladderPositions.get(next) != null;
     }
 
-    private static boolean nextPositionHasSnake(Map<Integer, Integer> snkPos, int next) {
-        return snkPos.get(next) != null;
+    private boolean nextPositionHasSnake(int next) {
+        return this.snakePositions.get(next) != null;
     }
 
     private boolean startsWithOtherThanSix(int currentPosition, int nextNum) {
