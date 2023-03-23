@@ -2,6 +2,7 @@ package com.snakes_and_ladders;
 
 import com.snakes_and_ladders.entity.board.Board;
 import com.snakes_and_ladders.entity.dice.Dice;
+import com.snakes_and_ladders.entity.player.Player;
 import com.snakes_and_ladders.printer.Prompt;
 
 public class Game {
@@ -9,13 +10,16 @@ public class Game {
     private final Dice diceRoll;
     private final Prompt prompt;
     private final Board board;
-    private final int[] playerPositions;
+    private final Player[] players;
 
     public Game(Dice diceRoll, Prompt prompt, Board board) {
         this.diceRoll = diceRoll;
         this.prompt = prompt;
         this.board = board;
-        this.playerPositions = new int[4];
+        this.players = new Player[4];
+        for (int i=0;i<4;i++) {
+            this.players[i] = new Player();
+        }
     }
 
     public void play() {
@@ -47,7 +51,7 @@ public class Game {
     }
 
     private boolean isGameOver(int currentPlayerIndex, int nextNum) {
-        if (isPositionHundred(this.playerPositions[currentPlayerIndex] + nextNum)) {
+        if (isPositionHundred(this.players[currentPlayerIndex].getPosition() + nextNum)) {
             this.prompt.winner(currentPlayerIndex);
             return true;
         }
@@ -56,35 +60,35 @@ public class Game {
 
     private void updatePlayerPosition(int currentPlayerIndex, int nextNum) {
         boolean skip = false;
-        int next = this.playerPositions[currentPlayerIndex] + nextNum;
+        int next = this.players[currentPlayerIndex].getPosition() + nextNum;
 
         if (isPositionMoreThanHundred(next)) {
-            this.prompt.playerPositionIsMoreThanHundred(currentPlayerIndex, this.playerPositions[currentPlayerIndex]);
+            this.prompt.playerPositionIsMoreThanHundred(currentPlayerIndex, this.players[currentPlayerIndex].getPosition());
             skip = true;
         }
 
-        if (startsWithOtherThanSix(this.playerPositions[currentPlayerIndex], nextNum)) {
+        if (startsWithOtherThanSix(this.players[currentPlayerIndex].getPosition(), nextNum)) {
             this.prompt.playerDidNotStartWithSix(currentPlayerIndex);
             skip = true;
         }
 
         if (isPositionContainingSnake(next)) {
             this.prompt.playerBitBySnake(next);
-            this.playerPositions[currentPlayerIndex] = this.board.snakePositions().getTailPositionFor(next);
+            this.players[currentPlayerIndex].setPosition(this.board.snakePositions().getTailPositionFor(next));
             skip = true;
         }
 
         if (isPositionContainingLadder(next)) {
             this.prompt.playerChancedLadder(next);
-            this.playerPositions[currentPlayerIndex] = this.board.ladderPositions().getEndPositionOfLadderAt(next);
+            this.players[currentPlayerIndex].setPosition(this.board.ladderPositions().getEndPositionOfLadderAt(next));
             skip = true;
         }
 
         if (!skip) {
-            this.playerPositions[currentPlayerIndex] = next;
+            this.players[currentPlayerIndex].setPosition(next);
         }
 
-        this.prompt.playerNextPosition(currentPlayerIndex, this.playerPositions[currentPlayerIndex]);
+        this.prompt.playerNextPosition(currentPlayerIndex, this.players[currentPlayerIndex].getPosition());
     }
 
     private boolean isPositionMoreThanHundred(int position) {
