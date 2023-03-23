@@ -30,10 +30,7 @@ public class Game {
             int nextNum = diceRoll.getNumber();
             this.prompt.diceRollOutcome(currentPlayerIndex, nextNum);
 
-            if (isPositionHundred(this.playerPositions[currentPlayerIndex] + nextNum)) {
-                this.prompt.winner(currentPlayerIndex);
-                break;
-            }
+            if (isGameOver(currentPlayerIndex, nextNum)) break;
 
             updatePlayerPosition(currentPlayerIndex, nextNum);
 
@@ -41,6 +38,14 @@ public class Game {
             currentPlayerIndex = (currentPlayerIndex + 1) % 4;
             this.prompt.nextPlayerTurn(currentPlayerIndex);
         }
+    }
+
+    private boolean isGameOver(int currentPlayerIndex, int nextNum) {
+        if (isPositionHundred(this.playerPositions[currentPlayerIndex] + nextNum)) {
+            this.prompt.winner(currentPlayerIndex);
+            return true;
+        }
+        return false;
     }
 
     private void updatePlayerPosition(int currentPlayerIndex, int nextNum) {
