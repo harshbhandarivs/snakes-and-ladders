@@ -32,11 +32,16 @@ public class Game {
             if (isGameOver(currentPlayerIndex, diceRoll)) break;
 
             updatePlayerPosition(currentPlayerIndex, diceRoll);
-
             this.prompt.playerNextPosition(currentPlayerIndex, this.playerPositions[currentPlayerIndex]);
-            currentPlayerIndex = (currentPlayerIndex + 1) % 4;
-            this.prompt.nextPlayerTurn(currentPlayerIndex);
+
+            currentPlayerIndex = incrementAndPromptCurrentPlayerIndex(currentPlayerIndex);
         }
+    }
+
+    private int incrementAndPromptCurrentPlayerIndex(int currentPlayerIndex) {
+        currentPlayerIndex = (currentPlayerIndex + 1) % 4;
+        this.prompt.nextPlayerTurn(currentPlayerIndex);
+        return currentPlayerIndex;
     }
 
     private int getDiceRoll(int currentPlayerIndex) {
