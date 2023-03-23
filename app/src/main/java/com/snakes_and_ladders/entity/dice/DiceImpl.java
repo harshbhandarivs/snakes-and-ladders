@@ -1,4 +1,4 @@
-package com.snakes_and_ladders.input;
+package com.snakes_and_ladders.entity.dice;
 
 import java.util.Random;
 

@@ -1,7 +1,7 @@
 package com.snakes_and_ladders;
 
-import com.snakes_and_ladders.input.Dice;
-import com.snakes_and_ladders.input.DiceStub;
+import com.snakes_and_ladders.entity.dice.Dice;
+import com.snakes_and_ladders.entity.dice.DiceStub;
 import com.snakes_and_ladders.printer.PrinterStub;
 import com.snakes_and_ladders.printer.Prompt;
 import org.junit.jupiter.api.Assertions;

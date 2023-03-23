@@ -1,8 +1,8 @@
 package com.snakes_and_ladders;
 
 
-import com.snakes_and_ladders.input.Dice;
-import com.snakes_and_ladders.input.DiceImpl;
+import com.snakes_and_ladders.entity.dice.Dice;
+import com.snakes_and_ladders.entity.dice.DiceImpl;
 import com.snakes_and_ladders.printer.PrinterImpl;
 import com.snakes_and_ladders.printer.Prompt;
 
