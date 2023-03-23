@@ -1,13 +1,7 @@
 package com.snakes_and_ladders.entity.board;
 
-import java.util.Map;
+import com.snakes_and_ladders.entity.ladder.LadderMap;
+import com.snakes_and_ladders.entity.snake.SnakeMap;
 
-public class Board {
-    public final Map<Integer, Integer> snakePositions;
-    public final Map<Integer, Integer> ladderPositions;
-
-    public Board(Map<Integer, Integer> snakePositions, Map<Integer, Integer> ladderPositions) {
-        this.snakePositions = snakePositions;
-        this.ladderPositions = ladderPositions;
-    }
+public record Board(SnakeMap snakePositions, LadderMap ladderPositions) {
 }

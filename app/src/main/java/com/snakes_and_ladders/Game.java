@@ -70,13 +70,13 @@ public class Game {
 
         if (isPositionContainingSnake(next)) {
             this.prompt.playerBitBySnake(next);
-            this.playerPositions[currentPlayerIndex] = this.board.snakePositions.get(next);
+            this.playerPositions[currentPlayerIndex] = this.board.snakePositions().getTailPositionFor(next);
             skip = true;
         }
 
         if (isPositionContainingLadder(next)) {
             this.prompt.playerChancedLadder(next);
-            this.playerPositions[currentPlayerIndex] = this.board.ladderPositions.get(next);
+            this.playerPositions[currentPlayerIndex] = this.board.ladderPositions().getEndPositionOfLadderAt(next);
             skip = true;
         }
 
@@ -96,11 +96,11 @@ public class Game {
     }
 
     private boolean isPositionContainingLadder(int position) {
-        return this.board.ladderPositions.get(position) != null;
+        return this.board.ladderPositions().isLadderPresentAt(position);
     }
 
     private boolean isPositionContainingSnake(int position) {
-        return this.board.snakePositions.get(position) != null;
+        return this.board.snakePositions().isSnakeHeadPresentAt(position);
     }
 
     private boolean startsWithOtherThanSix(int currentPosition, int nextNum) {

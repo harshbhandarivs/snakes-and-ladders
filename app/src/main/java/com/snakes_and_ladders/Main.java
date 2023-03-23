@@ -4,41 +4,43 @@ package com.snakes_and_ladders;
 import com.snakes_and_ladders.entity.board.Board;
 import com.snakes_and_ladders.entity.dice.Dice;
 import com.snakes_and_ladders.entity.dice.DiceImpl;
+import com.snakes_and_ladders.entity.ladder.Ladder;
+import com.snakes_and_ladders.entity.ladder.LadderMap;
+import com.snakes_and_ladders.entity.snake.Snake;
+import com.snakes_and_ladders.entity.snake.SnakeMap;
 import com.snakes_and_ladders.printer.PrinterImpl;
 import com.snakes_and_ladders.printer.Prompt;
-
-import java.util.HashMap;
 
 public class Main {
 
     public static void main(String[] args) {
         Dice diceRoll = new DiceImpl();
         Prompt prompt = new Prompt(new PrinterImpl());
-        Board board = new Board(new HashMap<>() {
-            {
-                put(18, 2);
-                put(25, 8);
-                put(38, 11);
-                put(41, 19);
-                put(59, 21);
-                put(72, 12);
-                put(78, 7);
-                put(86, 31);
-                put(92, 26);
-                put(97, 5);
-            }
-        }, new HashMap<>() {
-            {
-                put(9, 32);
-                put(12, 53);
-                put(17, 90);
-                put(21, 50);
-                put(27, 66);
-                put(29, 42);
-                put(44, 73);
-                put(63, 88);
-            }
-        });
+        Snake[] snakes = {
+                new Snake(18, 2),
+                new Snake(25, 8),
+                new Snake(38, 11),
+                new Snake(41, 19),
+                new Snake(59, 21),
+                new Snake(72, 12),
+                new Snake(78, 7),
+                new Snake(86, 31),
+                new Snake(92, 26),
+                new Snake(97, 5),
+        };
+        Ladder[] ladders = {
+                new Ladder(9, 32),
+                new Ladder(12, 53),
+                new Ladder(17, 90),
+                new Ladder(21, 50),
+                new Ladder(27, 66),
+                new Ladder(29, 42),
+                new Ladder(44, 73),
+                new Ladder(63, 88)
+        };
+        LadderMap ladderPositions = new LadderMap(ladders);
+        SnakeMap snakePositions = new SnakeMap(snakes);
+        Board board = new Board(snakePositions, ladderPositions);
         Game game = new Game(diceRoll, prompt, board);
         game.play();
         System.exit(1);
