@@ -32,7 +32,6 @@ public class Game {
             if (isGameOver(currentPlayerIndex, diceRoll)) break;
 
             updatePlayerPosition(currentPlayerIndex, diceRoll);
-            this.prompt.playerNextPosition(currentPlayerIndex, this.playerPositions[currentPlayerIndex]);
 
             currentPlayerIndex = incrementAndPromptCurrentPlayerIndex(currentPlayerIndex);
         }
@@ -87,6 +86,8 @@ public class Game {
         if (!skip) {
             this.playerPositions[currentPlayerIndex] = next;
         }
+
+        this.prompt.playerNextPosition(currentPlayerIndex, this.playerPositions[currentPlayerIndex]);
     }
 
     private boolean isPositionMoreThanHundred(int position) {
