@@ -1,23 +1,20 @@
 package com.snakes_and_ladders;
 
+import com.snakes_and_ladders.entity.board.Board;
 import com.snakes_and_ladders.entity.dice.Dice;
 import com.snakes_and_ladders.printer.Prompt;
-
-import java.util.Map;
 
 public class Game {
 
     private final Dice diceRoll;
     private final Prompt prompt;
-    private final Map<Integer, Integer> snakePositions;
-    private final Map<Integer, Integer> ladderPositions;
+    private final Board board;
     private final int[] playerPositions;
 
-    public Game(Dice diceRoll, Prompt prompt, Map<Integer, Integer> snakePositions, Map<Integer, Integer> ladderPositions) {
+    public Game(Dice diceRoll, Prompt prompt, Board board) {
         this.diceRoll = diceRoll;
         this.prompt = prompt;
-        this.snakePositions = snakePositions;
-        this.ladderPositions = ladderPositions;
+        this.board = board;
         this.playerPositions = new int[4];
     }
 
@@ -73,13 +70,13 @@ public class Game {
 
         if (isPositionContainingSnake(next)) {
             this.prompt.playerBitBySnake(next);
-            this.playerPositions[currentPlayerIndex] = snakePositions.get(next);
+            this.playerPositions[currentPlayerIndex] = this.board.snakePositions.get(next);
             skip = true;
         }
 
         if (isPositionContainingLadder(next)) {
             this.prompt.playerChancedLadder(next);
-            this.playerPositions[currentPlayerIndex] = ladderPositions.get(next);
+            this.playerPositions[currentPlayerIndex] = this.board.ladderPositions.get(next);
             skip = true;
         }
 
@@ -99,11 +96,11 @@ public class Game {
     }
 
     private boolean isPositionContainingLadder(int position) {
-        return this.ladderPositions.get(position) != null;
+        return this.board.ladderPositions.get(position) != null;
     }
 
     private boolean isPositionContainingSnake(int position) {
-        return this.snakePositions.get(position) != null;
+        return this.board.snakePositions.get(position) != null;
     }
 
     private boolean startsWithOtherThanSix(int currentPosition, int nextNum) {

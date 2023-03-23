@@ -1,6 +1,7 @@
 package com.snakes_and_ladders;
 
 
+import com.snakes_and_ladders.entity.board.Board;
 import com.snakes_and_ladders.entity.dice.Dice;
 import com.snakes_and_ladders.entity.dice.DiceImpl;
 import com.snakes_and_ladders.printer.PrinterImpl;
@@ -13,7 +14,7 @@ public class Main {
     public static void main(String[] args) {
         Dice diceRoll = new DiceImpl();
         Prompt prompt = new Prompt(new PrinterImpl());
-        Game game = new Game(diceRoll, prompt, new HashMap<>() {
+        Board board = new Board(new HashMap<>() {
             {
                 put(18, 2);
                 put(25, 8);
@@ -38,6 +39,7 @@ public class Main {
                 put(63, 88);
             }
         });
+        Game game = new Game(diceRoll, prompt, board);
         game.play();
         System.exit(1);
     }
