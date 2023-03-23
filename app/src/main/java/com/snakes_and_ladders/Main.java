@@ -3,8 +3,8 @@ package com.snakes_and_ladders;
 
 import com.snakes_and_ladders.input.DiceRoll;
 import com.snakes_and_ladders.input.DiceRollImpl;
-import com.snakes_and_ladders.printer.Printer;
 import com.snakes_and_ladders.printer.PrinterImpl;
+import com.snakes_and_ladders.printer.Prompt;
 
 import java.util.HashMap;
 
@@ -12,8 +12,8 @@ public class Main {
 
     public static void main(String[] args) {
         DiceRoll diceRoll = new DiceRollImpl();
-        Printer printer = new PrinterImpl();
-        Game game = new Game(diceRoll, printer, new HashMap<>() {
+        Prompt prompt = new Prompt(new PrinterImpl());
+        Game game = new Game(diceRoll, prompt, new HashMap<>() {
             {
                 put(18, 2);
                 put(25, 8);

@@ -1,34 +1,24 @@
 package com.snakes_and_ladders;
 
 import com.snakes_and_ladders.input.DiceRoll;
-import com.snakes_and_ladders.printer.Printer;
+import com.snakes_and_ladders.printer.Prompt;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class Game {
 
     private final DiceRoll diceRoll;
-    private final Printer printer;
+    private final Prompt prompt;
     private final Map<Integer, Integer> snakePositions;
     private final Map<Integer, Integer> ladderPositions;
     private final int[] playerPositions;
-    private final Map<Integer, String> playerNumberToNames;
 
-    public Game(DiceRoll diceRoll, Printer printer, Map<Integer, Integer> snakePositions, Map<Integer, Integer> ladderPositions) {
+    public Game(DiceRoll diceRoll, Prompt prompt, Map<Integer, Integer> snakePositions, Map<Integer, Integer> ladderPositions) {
         this.diceRoll = diceRoll;
-        this.printer = printer;
+        this.prompt = prompt;
         this.snakePositions = snakePositions;
         this.ladderPositions = ladderPositions;
         this.playerPositions = new int[4];
-        this.playerNumberToNames = new HashMap<>() {
-            {
-                put(1, "one");
-                put(2, "two");
-                put(3, "three");
-                put(4, "four");
-            }
-        };
     }
 
     public void play() {
@@ -40,32 +30,32 @@ public class Game {
         while (true) {
 
             int nextNum = diceRoll.getNumber();
-            printer.println("Player " + (currentPlayerIndex + 1) + " got dice roll of " + nextNum);
+            this.prompt.diceRollOutcome(currentPlayerIndex, nextNum);
             int next = this.playerPositions[currentPlayerIndex] + nextNum;
 
             if (positionIsMoreThanHundred(next)) {
-                printer.println("Player " + this.playerNumberToNames.get(currentPlayerIndex + 1) + " needs to score exactly " + (100 - this.playerPositions[currentPlayerIndex]) + " on dice roll to win. Passing chance.");
+                this.prompt.playerPositionIsMoreThanHundred(currentPlayerIndex, this.playerPositions[currentPlayerIndex]);
                 skip = true;
             }
 
             if (positionIsHundred(next)) {
-                printer.println("Player " + this.playerNumberToNames.get(currentPlayerIndex + 1) + " wins! Game finished.");
+                this.prompt.winner(currentPlayerIndex);
                 break;
             }
 
             if (startsWithOtherThanSix(this.playerPositions[currentPlayerIndex], nextNum)) {
-                printer.println("Player " + this.playerNumberToNames.get(currentPlayerIndex + 1) + " did not score 6. First a 6 needs to be scored to start moving on board.");
+                this.prompt.playerDidNotStartWithSix(currentPlayerIndex);
                 skip = true;
             }
 
             if (positionHasSnake(next)) {
-                printer.println("Player got bit by snake a position " + next);
+                this.prompt.playerBitBySnake(next);
                 this.playerPositions[currentPlayerIndex] = snakePositions.get(next);
                 skip = true;
             }
 
             if (positionHasLadder(next)) {
-                printer.println("Player got chanced upon a ladder at position " + next + "!");
+                this.prompt.playerChancedLadder(next);
                 this.playerPositions[currentPlayerIndex] = ladderPositions.get(next);
                 skip = true;
             }
@@ -74,10 +64,10 @@ public class Game {
                 this.playerPositions[currentPlayerIndex] = next;
             }
 
-            printer.println("Next position for player " + this.playerNumberToNames.get(currentPlayerIndex + 1) + " is " + this.playerPositions[currentPlayerIndex]);
+            this.prompt.playerNextPosition(currentPlayerIndex, this.playerPositions[currentPlayerIndex]);
             skip = false;
             currentPlayerIndex = (currentPlayerIndex + 1) % 4;
-            printer.println("Player " + this.playerNumberToNames.get(currentPlayerIndex + 1) + " will play next turn");
+            this.prompt.nextPlayerTurn(currentPlayerIndex);
         }
     }
 

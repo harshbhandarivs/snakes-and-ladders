@@ -3,6 +3,7 @@ package com.snakes_and_ladders;
 import com.snakes_and_ladders.input.DiceRoll;
 import com.snakes_and_ladders.input.DiceRollStub;
 import com.snakes_and_ladders.printer.PrinterStub;
+import com.snakes_and_ladders.printer.Prompt;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -512,7 +513,8 @@ class GameTest {
     @MethodSource("provideOutcomes")
     public void shouldPlayGameWithPreSpecifiedOutComes(DiceRoll diceRoll, List<String> output) {
         PrinterStub printer = new PrinterStub();
-        Game game = new Game(diceRoll, printer, new HashMap<>() {
+        Prompt prompt = new Prompt(printer);
+        Game game = new Game(diceRoll, prompt, new HashMap<>() {
             {
                 put(18, 2);
                 put(25, 8);
