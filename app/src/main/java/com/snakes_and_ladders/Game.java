@@ -33,12 +33,12 @@ public class Game {
             this.prompt.diceRollOutcome(currentPlayerIndex, nextNum);
             int next = this.playerPositions[currentPlayerIndex] + nextNum;
 
-            if (positionIsMoreThanHundred(next)) {
+            if (isPositionMoreThanHundred(next)) {
                 this.prompt.playerPositionIsMoreThanHundred(currentPlayerIndex, this.playerPositions[currentPlayerIndex]);
                 skip = true;
             }
 
-            if (positionIsHundred(next)) {
+            if (isPositionHundred(next)) {
                 this.prompt.winner(currentPlayerIndex);
                 break;
             }
@@ -48,13 +48,13 @@ public class Game {
                 skip = true;
             }
 
-            if (positionHasSnake(next)) {
+            if (isPositionContainingSnake(next)) {
                 this.prompt.playerBitBySnake(next);
                 this.playerPositions[currentPlayerIndex] = snakePositions.get(next);
                 skip = true;
             }
 
-            if (positionHasLadder(next)) {
+            if (isPositionContainingLadder(next)) {
                 this.prompt.playerChancedLadder(next);
                 this.playerPositions[currentPlayerIndex] = ladderPositions.get(next);
                 skip = true;
@@ -71,19 +71,19 @@ public class Game {
         }
     }
 
-    private boolean positionIsMoreThanHundred(int position) {
+    private boolean isPositionMoreThanHundred(int position) {
         return position > 100;
     }
 
-    private boolean positionIsHundred(int position) {
+    private boolean isPositionHundred(int position) {
         return position == 100;
     }
 
-    private boolean positionHasLadder(int position) {
+    private boolean isPositionContainingLadder(int position) {
         return this.ladderPositions.get(position) != null;
     }
 
-    private boolean positionHasSnake(int position) {
+    private boolean isPositionContainingSnake(int position) {
         return this.snakePositions.get(position) != null;
     }
 
