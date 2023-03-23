@@ -1,7 +1,7 @@
 package com.snakes_and_ladders;
 
-import com.snakes_and_ladders.input.DiceRoll;
-import com.snakes_and_ladders.input.DiceRollStub;
+import com.snakes_and_ladders.input.Dice;
+import com.snakes_and_ladders.input.DiceStub;
 import com.snakes_and_ladders.printer.PrinterStub;
 import com.snakes_and_ladders.printer.Prompt;
 import org.junit.jupiter.api.Assertions;
@@ -18,7 +18,7 @@ class GameTest {
 
     public static Stream<Arguments> provideOutcomes() {
         return Stream.of(
-                Arguments.of(new DiceRollStub(
+                Arguments.of(new DiceStub(
                         new ArrayList<>(List.of(4, 6, 6, 2, 2, 1, 3, 2, 6, 3, 1, 3, 6, 3, 2, 2, 6, 3, 5, 5, 2, 2, 3, 3, 4, 3, 5,
                                 1, 2, 5, 4, 6, 4, 6, 6, 4, 2, 1, 5, 3, 5, 2, 4, 4, 2, 5, 6, 6, 3, 3, 1, 5, 1, 1, 1, 4))),
                         List.of("Player 1 got dice roll of 4",
@@ -204,7 +204,7 @@ class GameTest {
                         "Player 3 got dice roll of 1", "Next position for player three is 34",
                         "Player four will play next turn", "Player 4 got dice roll of 4",
                         "Player four wins! Game finished.")),
-        Arguments.of(new DiceRollStub(new ArrayList<>(List.of(2,
+        Arguments.of(new DiceStub(new ArrayList<>(List.of(2,
                 2, 6, 5, 3, 4, 3, 6, 5, 5, 3, 2, 5, 1, 3, 4, 4, 5, 5, 5, 3, 4, 4, 4, 1, 3, 3, 6, 6, 1, 4, 3, 2, 4, 6, 2, 2, 2, 4, 3, 3, 1, 4, 5, 2, 3, 6, 1, 3, 2, 3, 2, 2, 1, 1, 5, 2, 5, 1, 2, 6, 2, 6, 5, 6, 2, 1, 4
         ))), List.of("Player 1 got dice roll of 2",
                 "Player one did not score 6. First a 6 needs to be scored to start moving on board.",
@@ -443,7 +443,7 @@ class GameTest {
                 "Next position for player three is 80",
                 "Player four will play next turn",
                 "Player 4 got dice roll of 4",
-                "Player four wins! Game finished.")), Arguments.of(new DiceRollStub(
+                "Player four wins! Game finished.")), Arguments.of(new DiceStub(
                         new ArrayList<>(List.of(6, 1, 1, 1, 5, 1, 1, 1, 6, 1, 1, 1, 6, 1, 1, 1, 4))), List.of("Player 1 got dice roll of 6",
                         "Next position for player one is 6",
                         "Player two will play next turn",
@@ -511,7 +511,7 @@ class GameTest {
 
     @ParameterizedTest
     @MethodSource("provideOutcomes")
-    public void shouldPlayGameWithPreSpecifiedOutComes(DiceRoll diceRoll, List<String> output) {
+    public void shouldPlayGameWithPreSpecifiedOutComes(Dice diceRoll, List<String> output) {
         PrinterStub printer = new PrinterStub();
         Prompt prompt = new Prompt(printer);
         Game game = new Game(diceRoll, prompt, new HashMap<>() {

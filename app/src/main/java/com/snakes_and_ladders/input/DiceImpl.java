@@ -2,16 +2,16 @@ package com.snakes_and_ladders.input;
 
 import java.util.Random;
 
-public class DiceRollImpl implements DiceRoll {
+public class DiceImpl implements Dice {
 
     private final Random random;
 
-    public DiceRollImpl() {
+    public DiceImpl() {
         random = new Random();
     }
 
     @Override
-    public int getNumber() {
+    public int roll() {
         return random.nextInt(6) + 1;
     }
 }

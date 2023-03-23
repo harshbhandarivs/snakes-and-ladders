@@ -1,19 +1,19 @@
 package com.snakes_and_ladders;
 
-import com.snakes_and_ladders.input.DiceRoll;
+import com.snakes_and_ladders.input.Dice;
 import com.snakes_and_ladders.printer.Prompt;
 
 import java.util.Map;
 
 public class Game {
 
-    private final DiceRoll diceRoll;
+    private final Dice diceRoll;
     private final Prompt prompt;
     private final Map<Integer, Integer> snakePositions;
     private final Map<Integer, Integer> ladderPositions;
     private final int[] playerPositions;
 
-    public Game(DiceRoll diceRoll, Prompt prompt, Map<Integer, Integer> snakePositions, Map<Integer, Integer> ladderPositions) {
+    public Game(Dice diceRoll, Prompt prompt, Map<Integer, Integer> snakePositions, Map<Integer, Integer> ladderPositions) {
         this.diceRoll = diceRoll;
         this.prompt = prompt;
         this.snakePositions = snakePositions;
@@ -44,7 +44,7 @@ public class Game {
     }
 
     private int getDiceRoll(int currentPlayerIndex) {
-        int nextNum = diceRoll.getNumber();
+        int nextNum = diceRoll.roll();
         this.prompt.diceRollOutcome(currentPlayerIndex, nextNum);
         return nextNum;
     }
