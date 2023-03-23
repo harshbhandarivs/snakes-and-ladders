@@ -27,17 +27,22 @@ public class Game {
         //continue to play the game until it is over
         while (true) {
 
-            int nextNum = diceRoll.getNumber();
-            this.prompt.diceRollOutcome(currentPlayerIndex, nextNum);
+            int diceRoll = getDiceRoll(currentPlayerIndex);
 
-            if (isGameOver(currentPlayerIndex, nextNum)) break;
+            if (isGameOver(currentPlayerIndex, diceRoll)) break;
 
-            updatePlayerPosition(currentPlayerIndex, nextNum);
+            updatePlayerPosition(currentPlayerIndex, diceRoll);
 
             this.prompt.playerNextPosition(currentPlayerIndex, this.playerPositions[currentPlayerIndex]);
             currentPlayerIndex = (currentPlayerIndex + 1) % 4;
             this.prompt.nextPlayerTurn(currentPlayerIndex);
         }
+    }
+
+    private int getDiceRoll(int currentPlayerIndex) {
+        int nextNum = diceRoll.getNumber();
+        this.prompt.diceRollOutcome(currentPlayerIndex, nextNum);
+        return nextNum;
     }
 
     private boolean isGameOver(int currentPlayerIndex, int nextNum) {
