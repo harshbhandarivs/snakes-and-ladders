@@ -23,51 +23,54 @@ public class Game {
 
     public void play() {
         int currentPlayerIndex = 0;
-        boolean skip = false;
-
 
         //continue to play the game until it is over
         while (true) {
 
             int nextNum = diceRoll.getNumber();
             this.prompt.diceRollOutcome(currentPlayerIndex, nextNum);
-            int next = this.playerPositions[currentPlayerIndex] + nextNum;
 
-            if (isPositionMoreThanHundred(next)) {
-                this.prompt.playerPositionIsMoreThanHundred(currentPlayerIndex, this.playerPositions[currentPlayerIndex]);
-                skip = true;
-            }
-
-            if (isPositionHundred(next)) {
+            if (isPositionHundred(this.playerPositions[currentPlayerIndex] + nextNum)) {
                 this.prompt.winner(currentPlayerIndex);
                 break;
             }
 
-            if (startsWithOtherThanSix(this.playerPositions[currentPlayerIndex], nextNum)) {
-                this.prompt.playerDidNotStartWithSix(currentPlayerIndex);
-                skip = true;
-            }
-
-            if (isPositionContainingSnake(next)) {
-                this.prompt.playerBitBySnake(next);
-                this.playerPositions[currentPlayerIndex] = snakePositions.get(next);
-                skip = true;
-            }
-
-            if (isPositionContainingLadder(next)) {
-                this.prompt.playerChancedLadder(next);
-                this.playerPositions[currentPlayerIndex] = ladderPositions.get(next);
-                skip = true;
-            }
-
-            if (!skip) {
-                this.playerPositions[currentPlayerIndex] = next;
-            }
+            updatePlayerPosition(currentPlayerIndex, nextNum);
 
             this.prompt.playerNextPosition(currentPlayerIndex, this.playerPositions[currentPlayerIndex]);
-            skip = false;
             currentPlayerIndex = (currentPlayerIndex + 1) % 4;
             this.prompt.nextPlayerTurn(currentPlayerIndex);
+        }
+    }
+
+    private void updatePlayerPosition(int currentPlayerIndex, int nextNum) {
+        boolean skip = false;
+        int next = this.playerPositions[currentPlayerIndex] + nextNum;
+
+        if (isPositionMoreThanHundred(next)) {
+            this.prompt.playerPositionIsMoreThanHundred(currentPlayerIndex, this.playerPositions[currentPlayerIndex]);
+            skip = true;
+        }
+
+        if (startsWithOtherThanSix(this.playerPositions[currentPlayerIndex], nextNum)) {
+            this.prompt.playerDidNotStartWithSix(currentPlayerIndex);
+            skip = true;
+        }
+
+        if (isPositionContainingSnake(next)) {
+            this.prompt.playerBitBySnake(next);
+            this.playerPositions[currentPlayerIndex] = snakePositions.get(next);
+            skip = true;
+        }
+
+        if (isPositionContainingLadder(next)) {
+            this.prompt.playerChancedLadder(next);
+            this.playerPositions[currentPlayerIndex] = ladderPositions.get(next);
+            skip = true;
+        }
+
+        if (!skip) {
+            this.playerPositions[currentPlayerIndex] = next;
         }
     }
 
