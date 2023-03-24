@@ -11,6 +11,7 @@ public class Game {
     private final Prompt prompt;
     private final Board board;
     private final Player[] players;
+    private int currentPlayerIndex;
 
     public Game(Dice diceRoll, Prompt prompt, Board board) {
         this.diceRoll = diceRoll;
@@ -20,37 +21,36 @@ public class Game {
         for (int i=0;i<4;i++) {
             this.players[i] = new Player();
         }
+        this.currentPlayerIndex = 0;
     }
 
     public void play() {
-        int currentPlayerIndex = 0;
 
         //continue to play the game until it is over
         while (true) {
 
-            int diceRoll = getDiceRoll(currentPlayerIndex);
+            int diceRoll = getDiceRoll();
 
-            if (isGameOver(currentPlayerIndex, diceRoll)) break;
+            if (isGameOver(diceRoll)) break;
 
-            updatePlayerPosition(currentPlayerIndex, diceRoll);
+            updatePlayerPosition(diceRoll);
 
-            currentPlayerIndex = incrementAndPromptCurrentPlayerIndex(currentPlayerIndex);
+            incrementAndPromptCurrentPlayerIndex();
         }
     }
 
-    private int incrementAndPromptCurrentPlayerIndex(int currentPlayerIndex) {
+    private void incrementAndPromptCurrentPlayerIndex() {
         currentPlayerIndex = (currentPlayerIndex + 1) % 4;
         this.prompt.nextPlayerTurn(currentPlayerIndex);
-        return currentPlayerIndex;
     }
 
-    private int getDiceRoll(int currentPlayerIndex) {
+    private int getDiceRoll() {
         int nextNum = diceRoll.roll();
         this.prompt.diceRollOutcome(currentPlayerIndex, nextNum);
         return nextNum;
     }
 
-    private boolean isGameOver(int currentPlayerIndex, int nextNum) {
+    private boolean isGameOver(int nextNum) {
         if (isPositionHundred(this.players[currentPlayerIndex].getPosition() + nextNum)) {
             this.prompt.winner(currentPlayerIndex);
             return true;
@@ -58,7 +58,7 @@ public class Game {
         return false;
     }
 
-    private void updatePlayerPosition(int currentPlayerIndex, int nextNum) {
+    private void updatePlayerPosition(int nextNum) {
         boolean skip = false;
         int next = this.players[currentPlayerIndex].getPosition() + nextNum;
 
